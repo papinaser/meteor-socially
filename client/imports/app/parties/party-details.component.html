@@ -1,0 +1,55 @@
+<div class="row ma-party-details-container">
+    <div class="col-sm-6 col-sm-offset-3">
+        <legend>View and Edit Your Party Details:</legend>
+            <form class="form-horizontal" *ngIf="party" (submit)="saveParty()">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input  class="form-control" [disabled]="!isOwner" type="text" [(ngModel)]="party.name" name="name">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input  class="form-control" [disabled]="!isOwner" type="text" [(ngModel)]="party.description" name="description">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input class="form-control"  [disabled]="!isOwner" type="text" [(ngModel)]="party.location.name" name="location">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" [disabled]="!isOwner" type="submit">Save</button>
+                    <a class="btn" [routerLink]="['/']">Cancel</a>
+                </div>
+            </form>
+
+        <ul  class="ma-invite-list" *ngIf="isOwner || isPublic">
+            <h3>Users to invite:</h3>
+            <li *ngFor="let user of users | async">
+                <div>{{user | displayName}}</div>
+                <button (click)="invite(user)" class="btn btn-primary btn-sm">Invite</button>
+            </li>
+        </ul>
+
+        <div *ngIf="isInvited">
+            <h2>Reply to the invitation</h2>
+            <input class="btn btn-primary" type="button" value="I'm going!" (click)="reply('yes')">
+            <input class="btn btn-primary" type="button" value="Maybe" (click)="reply('maybe')">
+            <input class="btn btn-primary" type="button" value="No" (click)="reply('no')">
+        </div>
+
+        <h3 class="ma-map-title">
+            Click the map to set the party location
+        </h3>
+        <div class="angular-google-map-container">
+            <sebm-google-map
+                [latitude]="lat || centerLat"
+                [longitude]="lng || centerLng"
+                [zoom]="8"
+                (mapClick)="mapClicked($event)">
+            <sebm-google-map-marker
+                    *ngIf="lat && lng"
+                    [latitude]="lat"
+                    [longitude]="lng">
+            </sebm-google-map-marker>
+            </sebm-google-map>
+        </div>
+    </div>
+</div>
