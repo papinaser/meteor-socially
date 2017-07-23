@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Angular2-Meteor Boilerplate
 
 [![bitHound Overall Score](https://www.bithound.io/github/Urigo/angular2-meteor-base/badges/score.svg)](https://www.bithound.io/github/Urigo/angular2-meteor-base) [![bitHound Dependencies](https://www.bithound.io/github/Urigo/angular2-meteor-base/badges/dependencies.svg)](https://www.bithound.io/github/Urigo/angular2-meteor-base/master/dependencies/npm)
@@ -79,3 +80,7 @@ There is a main test file that initialize Angular 2 tests library, it located un
 All other test files are located near the component/service it tests, with the `.test.ts` extension.
 
 The `DemoComponent` contains example for Angular 2 tests for Component, and in the server side there is an example for testing Meteor collections and stub data.
+=======
+# meteor-socially
+angular2-meteor
+>>>>>>> ab15b8fd5a6d649740c7c21aa04789bf5e412f1f
