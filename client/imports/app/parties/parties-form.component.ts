@@ -4,20 +4,21 @@
 import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder,Validators  } from '@angular/forms';
-import { Meteor } from 'meteor/meteor';
 
 import { Parties } from '../../../../both/collections/parties.collection';
 import template from './parties-form.component.html';
+import style from './parties-form.component.scss';
 
 @Component({
     selector: 'parties-form',
-    template
+    template,
+    styles:[style]
 })
 
 @InjectUser('user')
 export class PartiesFormComponent implements OnInit {
     addForm: FormGroup;
-    user: Meteor.User;
+    newPartyPosition: {lat:number, lng: number} = {lat: 35.709397, lng: 51.128393};
 
     constructor(
         private formBuilder: FormBuilder
@@ -30,6 +31,9 @@ export class PartiesFormComponent implements OnInit {
             isPublic: [false]
         });
     }
+    mapClicked($event) {
+        this.newPartyPosition = $event.coords;
+    }
     addParty(): void {
         if (this.addForm.valid) {
             if (!Meteor.userId()) {
@@ -40,7 +44,9 @@ export class PartiesFormComponent implements OnInit {
                 name: this.addForm.value.name,
                 description: this.addForm.value.description,
                 location: {
-                    name: this.addForm.value.location
+                    name: this.addForm.value.location,
+                    lat: this.newPartyPosition.lat,
+                    lng: this.newPartyPosition.lng
                 },
                 isPublic: this.addForm.value.isPublic,
                 owner: Meteor.userId()
